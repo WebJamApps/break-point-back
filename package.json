@@ -4,7 +4,7 @@
   "description": "changeInChrist-API",
   "main": "index.js",
   "engines": {
-    "node": ">=15.1.0"
+    "node": ">=15.3.0"
   },
   "files": [
     "lib/",
@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/WebJamApps/web-jam-back.git"
+    "url": "git+ssh://git@github.com/WebJamApps/break-point-back.git"
   },
   "author": "HandlersAndKickers <>",
   "dependencies": {
