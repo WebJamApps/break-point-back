@@ -4,7 +4,7 @@
   "description": "changeInChrist-API",
   "main": "index.js",
   "engines": {
-    "node": ">=15.3.0"
+    "node": ">=15.5.0"
   },
   "files": [
     "lib/",
