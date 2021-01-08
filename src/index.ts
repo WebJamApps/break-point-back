@@ -26,7 +26,7 @@ const app = express();
 
 /* istanbul ignore next */
 if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforce.HTTPS({ trustProtoHeader: true }));
-app.use(express.static(path.normalize(path.join(__dirname, '../JaMmusic/dist'))));
+app.use(express.static(path.normalize(path.join(__dirname, '../breakpointministries/dist'))));
 app.use(cors(corsOptions));
 let mongoDbUri: string = process.env.MONGO_DB_URI || /* istanbul ignore next */'';
 /* istanbul ignore else */
@@ -60,7 +60,7 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 routes(app);
 app.get('*', (req, res) => {
-  res.sendFile(path.normalize(path.join(__dirname, '../JaMmusic/dist/index.html')));
+  res.sendFile(path.normalize(path.join(__dirname, '../breakpointministries/dist/index.html')));
 });
 app.use((_req, res) => res.status(404).send('not found'));
 /* istanbul ignore next */
