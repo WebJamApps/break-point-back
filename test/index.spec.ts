@@ -5,21 +5,23 @@ const AllowUrl = JSON.parse(process.env.AllowUrl || '{}');
 
 describe('Index test', () => {
   let allowedUrl: any, r, server: any, agent: any;
+  // eslint-disable-next-line jest/no-done-callback
   beforeAll((done) => {
-    server = app.listen(7000, (err) => {
-      if (err) return done(err);
+    server = app.listen(7000, () => {
       agent = request.agent(server);
       return done();
     });
   });
+  // eslint-disable-next-line jest/no-done-callback
   beforeEach((done) => {
     [allowedUrl] = AllowUrl.urls;
     done();
   });
+  // eslint-disable-next-line jest/no-done-callback
   afterAll((done) => server && server.close(done));
-  it('should return status 200 when use -> app.get', async () => {
+  it('should return status 200 when use -> app.get to unknown route', async () => {
     r = await agent
-      .get('/anyrul')
+      .get('/unknown')
       .set({ origin: allowedUrl })
       .set('authorization', 'Bearer ');
     expect(r.status).toBe(200);
