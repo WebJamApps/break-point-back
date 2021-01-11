@@ -2,9 +2,9 @@
 
 set -e
 
-BRANCH=master
+BRANCH=main
 
-if [[ $BUILD_BRANCH != "master" ]];
+if [[ $BUILD_BRANCH != "main" ]];
 then
     BRANCH=develop
 fi
