@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../src/index';
 
-describe('Inquiry Router', () => {
+describe('Email Router', () => {
   afterAll(async () => {
     await new Promise((resolve) => setTimeout(() => resolve(true), 500));
   });
@@ -9,7 +9,7 @@ describe('Inquiry Router', () => {
   let r;
   it('sends an email', async () => {
     r = await request(app)
-      .post('/inquiry')
+      .post('/api/email')
       .send({ email: 'yo@yo.com' });
     expect(r.status).toBe(200);
   });
