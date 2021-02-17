@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import request from 'supertest';
 import app from '../../src/index';
-import BookModel from '../../src/model/book/book-facade';
+import BookModel from '../../src/model/blog/blog-facade';
 import userModel from '../../src/model/user/user-facade';
 import authUtils from '../../src/auth/authUtils';
 

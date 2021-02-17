@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import user from './model/user/user-router';
-import book from './model/book/book-router';
+import book from './model/blog/blog-router';
 import email from './model/email/email-router';
 
 const router = express.Router();
