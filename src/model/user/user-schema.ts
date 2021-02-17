@@ -29,8 +29,8 @@ const userSchema = new Schema({
   volWorkOther: { type: String, required: false },
 });
 
-userSchema.pre('save', function pwEcrypt(next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
+userSchema.pre('save', function pwEcrypt(next) { // TODO move this to authUtils
+  // eslint-disable-next-line @typescript-eslint/no-this-alias, @typescript-eslint/no-explicit-any
   const user:any = this;
   if (!this.isModified('password') || user.password === '') {
     return next();

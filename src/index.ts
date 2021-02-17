@@ -58,7 +58,7 @@ app.use(helmet.contentSecurityPolicy({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
-routes(app);
+routes(app, '/api');
 app.get('*', (req, res) => {
   res.sendFile(path.normalize(path.join(__dirname, '../breakpointministries/dist/index.html')));
 });
