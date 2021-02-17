@@ -41,7 +41,6 @@ exclude_patterns:
   - "test/"
   - "**/node_modules/"
   - "coverage/"
-  - "JaMmusic/"
+  - "breakpointministries/"
   - "build/"
-  - "**/reset-song.ts"
-  - "src/experiments/"
+
