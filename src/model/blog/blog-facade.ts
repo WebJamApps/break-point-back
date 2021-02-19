@@ -1,8 +1,8 @@
 import Model from '../../lib/facade';
-import bookSchema from './blog-schema';
+import blogSchema from './blog-schema';
 
 class BlogModel extends Model {
 
 }
 
-export default new BlogModel(bookSchema);
+export default new BlogModel(blogSchema);
