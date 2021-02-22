@@ -87,5 +87,11 @@ const setIfExists = (item: string | null | undefined): string => {
 };
 
 export default {
-  setIfExists, checkEmailSyntax, generateCode, sendGridEmail, ensureAuthenticated, createJWT, findUserById,
+  setIfExists,
+  checkEmailSyntax,
+  generateCode,
+  sendGridEmail,
+  ensureAuthenticated,
+  createJWT,
+  findUserById,
 };
