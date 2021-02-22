@@ -80,9 +80,7 @@ const checkEmailSyntax = (req: any): Promise<boolean> => { // eslint-disable-nex
 };
 
 const setIfExists = (item: string | null | undefined): string => {
-  if (item !== '' && item !== null && item !== undefined) {
-    return item;
-  }
+  if (item !== '' && item !== null && item !== undefined) { return item; }
   return '';
 };
 
