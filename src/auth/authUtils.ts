@@ -2,7 +2,6 @@ import moment from 'moment';
 import jwt from 'jwt-simple';
 import Debug from 'debug';
 import dotenv from 'dotenv';
-import sgMail from '@sendgrid/mail';
 import userModel from '../model/user/user-schema';
 
 dotenv.config();
@@ -53,19 +52,6 @@ const ensureAuthenticated = (req: any, res: any, next: any): Promise<any> => {
   // return next();
 };
 
-const sendGridEmail = (bodyhtml: string, toemail: string, subjectline: string): void => {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY || /* istanbul ignore next */'');
-  const msg = {
-    to: toemail,
-    from: 'user-service@web-jam.com',
-    subject: subjectline,
-    text: bodyhtml,
-    html: bodyhtml,
-  };
-    /* istanbul ignore if */
-  if (process.env.NODE_ENV !== 'test') sgMail.send(msg);
-};
-
 const generateCode = (hi: number, low: number): number => {
   const min = Math.ceil(low);
   const max = Math.floor(hi);
@@ -88,7 +74,6 @@ export default {
   setIfExists,
   checkEmailSyntax,
   generateCode,
-  sendGridEmail,
   ensureAuthenticated,
   createJWT,
   findUserById,
