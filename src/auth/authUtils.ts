@@ -2,7 +2,6 @@ import moment from 'moment';
 import jwt from 'jwt-simple';
 import Debug from 'debug';
 import dotenv from 'dotenv';
-import sgMail from '@sendgrid/mail';
 import userModel from '../model/user/user-schema';
 
 dotenv.config();
@@ -53,25 +52,6 @@ const ensureAuthenticated = (req: any, res: any, next: any): Promise<any> => {
   // return next();
 };
 
-const sendGridEmail = (bodyhtml: string, toemail: string, subjectline: string): void => {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY || /* istanbul ignore next */'');
-  const msg = {
-    to: toemail,
-    from: 'user-service@web-jam.com',
-    subject: subjectline,
-    text: bodyhtml,
-    html: bodyhtml,
-  };
-    /* istanbul ignore if */
-  if (process.env.NODE_ENV !== 'test') sgMail.send(msg);
-};
-
-const generateCode = (hi: number, low: number): number => {
-  const min = Math.ceil(low);
-  const max = Math.floor(hi);
-  return Math.floor(Math.random() * (max - min)) + min;
-};
-
 const checkEmailSyntax = (req: any): Promise<boolean> => { // eslint-disable-next-line security/detect-unsafe-regex
   if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.changeemail)) {
     return Promise.resolve(true);
@@ -80,12 +60,14 @@ const checkEmailSyntax = (req: any): Promise<boolean> => { // eslint-disable-nex
 };
 
 const setIfExists = (item: string | null | undefined): string => {
-  if (item !== '' && item !== null && item !== undefined) {
-    return item;
-  }
+  if (item !== '' && item !== null && item !== undefined) { return item; }
   return '';
 };
 
 export default {
-  setIfExists, checkEmailSyntax, generateCode, sendGridEmail, ensureAuthenticated, createJWT, findUserById,
+  setIfExists,
+  checkEmailSyntax,
+  ensureAuthenticated,
+  createJWT,
+  findUserById,
 };

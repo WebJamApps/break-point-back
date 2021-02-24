@@ -1,5 +1,5 @@
 import express from 'express';
-import controller from './book-controller';
+import controller from './blog-controller';
 import authUtils from '../../auth/authUtils';
 import routeUtils from '../../lib/routeUtils';
 
@@ -10,8 +10,5 @@ router.route('/one')
   .get((req, res) => controller.findOne(req, res))
   .put(authUtils.ensureAuthenticated, (req, res) => controller.findOneAndUpdate(req, res));
 routeUtils.byId(router, controller, authUtils);
-
-router.route('/findcheckedout/:id')
-  .get(authUtils.ensureAuthenticated, (req, res) => controller.findCheckedOut(req, res));
 
 export default router;

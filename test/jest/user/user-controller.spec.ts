@@ -96,35 +96,6 @@ describe('User Controller', () => {
     r = await controller.login({ body: { email: 'j@b.com', password: 'pw' } }, resStub);
     expect(r.message).toBe('bad');
   });
-  it('catches error from finish signup', async () => {
-    controller.model.create = jest.fn(() => Promise.reject(new Error('bad')));
-    r = await controller.finishSignup(resStub, {}, 1);
-    expect(r.message).toBe('bad');
-  });
-  it('returns 400 from signup', async () => {
-    controller.model.validateSignup = jest.fn(() => 'invalid');
-    r = await controller.signup({ body: {} }, resStub);
-    expect(r.message).toBe('invalid');
-  });
-  it('catches findOne error from signup', async () => {
-    controller.model.validateSignup = jest.fn(() => '');
-    controller.model.findOne = jest.fn(() => Promise.reject(new Error('bad')));
-    r = await controller.signup({ body: {} }, resStub);
-    expect(r.message).toBe('bad');
-  });
-  it('returns 409 error from signup', async () => {
-    controller.model.validateSignup = jest.fn(() => '');
-    controller.model.findOne = jest.fn(() => Promise.resolve({ verifiedEmail: true }));
-    r = await controller.signup({ body: {} }, resStub);
-    expect(r.message).toBe('This email address is already registered');
-  });
-  it('returns 500 error from findByIdAndRemove during signup', async () => {
-    controller.model.validateSignup = jest.fn(() => '');
-    controller.model.findOne = jest.fn(() => Promise.resolve({ verifiedEmail: false }));
-    controller.model.findByIdAndRemove = jest.fn(() => Promise.reject(new Error('bad')));
-    r = await controller.signup({ body: {} }, resStub);
-    expect(r.message).toBe('bad');
-  });
   it('catches error on google authenticate', async () => {
     const sa: any = superagent;
     sa.post = jest.fn(() => ({ type: () => ({ send: () => ({ set: () => Promise.reject(new Error('bad')) }) }) }));

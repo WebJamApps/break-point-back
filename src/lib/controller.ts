@@ -14,7 +14,6 @@ interface Imodel {
   findByIdAndRemove:(...args:any)=>any;
   deleteMany:(...args:any)=>any;
   comparePassword?:(...args:any)=>any;
-  validateSignup?:(...args:any)=>any;
 }
 const debug = Debug('web-jam-back:lib/controller');
 let uRoles:string[] = [];
@@ -109,15 +108,15 @@ class Controller {
     return res.status(200).json({ message: `${this.model.Schema.modelName} deleteMany was successful` });
   }
 
-  async deleteAllDocs(): Promise<Error> {
+  async deleteAllDocs(): Promise<any> {
     debug('deleteAllDocs');
-    let result: Error;
+    let result: any;
     try { result = await this.model.deleteMany({}); } catch (e) { return Promise.reject(e); }
     return result;
   }
 
-  async createDocs(body: Record<string, unknown>[]): Promise<Error> {
-    let result: Error;
+  async createDocs(body: Record<string, unknown>[]): Promise<any> {
+    let result: any;
     try { result = await this.model.create(body); } catch (e) { return Promise.reject(e); }
     return result;
   }

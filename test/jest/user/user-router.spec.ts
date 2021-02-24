@@ -67,14 +67,6 @@ describe('User Router', () => {
       .send({ email: 'foo3@example.com', password: 'lottanumbers35555' });
     expect(r.status).toBe(200);
   });
-  it('signs up the new user', async () => {
-    r = await request(app)
-      .post('/api/user/auth/signup')
-      .send({
-        email: 'foo3@example.com', name: 'foomanchew', password: 'lottanumbers35555',
-      });
-    expect(r.status).toBe(201);
-  });
   it('authenticates with google', async () => {
     const g: any = google;
     g.authenticate = jest.fn(() => Promise.resolve({ names: [{ displayName: 'Josh' }], emailAddresses: [{ value: 'j@js.com' }] }));
