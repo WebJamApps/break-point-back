@@ -14,7 +14,6 @@ interface Imodel {
   findByIdAndRemove:(...args:any)=>any;
   deleteMany:(...args:any)=>any;
   comparePassword?:(...args:any)=>any;
-  validateSignup?:(...args:any)=>any;
 }
 const debug = Debug('web-jam-back:lib/controller');
 let uRoles:string[] = [];
