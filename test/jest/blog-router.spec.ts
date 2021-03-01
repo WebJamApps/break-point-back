@@ -1,39 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import request from 'supertest';
 import app from '../../src/index';
-import BookModel from '../../src/model/book/book-facade';
+import BlogModel from '../../src/model/blog/blog-facade';
 import userModel from '../../src/model/user/user-facade';
 import authUtils from '../../src/auth/authUtils';
 
-describe('The Book API', () => {
+describe('The Blog API', () => {
   let r, newUser:any;
   const allowedUrl = JSON.parse(process.env.AllowUrl || '{}').urls[0];
   beforeAll(async () => {
+    const query:any = {};
+    await userModel.deleteMany(query);
     newUser = await userModel.create({ name: 'foo', email: 'foo3@example.com', userType: JSON.parse(process.env.AUTH_ROLES || '{}').user[0] });
   });
   beforeEach(async () => {
     const deleter:any = {};
-    await BookModel.deleteMany(deleter);
+    await BlogModel.deleteMany(deleter);
   });
-  it('should find one book', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('should find one blog', async () => {
+    await BlogModel.create({
+      title: 'Best Blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .get('/book/one')
+      .get('/api/blog/one')
       .set({
         origin: allowedUrl,
       })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`)
       .query({ type: 'paperback' });
     expect(r.status).toBe(200);
-    expect(r.body.title).toBe('Best Test Book Ever');
+    expect(r.body.title).toBe('Best Blog Ever');
   });
-  it('should not find one book', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('should not find one blog', async () => {
+    await BlogModel.create({
+      title: 'Best Blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .get('/book/one')
+      .get('/api/blog/one')
       .set({
         origin: allowedUrl,
       })
@@ -41,91 +44,81 @@ describe('The Book API', () => {
       .query({ type: 'magazine' });
     expect(r.status).toBe(400);
   });
-  it('should update one book', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('should update one blog', async () => {
+    await BlogModel.create({
+      title: 'Best Blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .put('/book/one')
+      .put('/api/blog/one')
       .set({
         origin: allowedUrl,
       })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`)
       .query({ type: 'paperback' })
-      .send({ title: 'Bad Book' });
+      .send({ title: 'Bad Blog' });
     expect(r.status).toBe(200);
-    expect(r.body.title).toBe('Bad Book');
+    expect(r.body.title).toBe('Bad Blog');
   });
-  it('deletes a book by id', async () => {
-    const newBook = await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('deletes a blog by id', async () => {
+    const newBook = await BlogModel.create({
+      title: 'Best Blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .delete(`/book/${newBook._id}`)
+      .delete(`/api/blog/${newBook._id}`)
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`);
     expect(r.status).toBe(200);
   });
-  it('finds the checked out books', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback', checkedOutBy: '33333',
+  it('updates a blog by id', async () => {
+    const newBook = await BlogModel.create({
+      title: 'Best Blog Ever', type: 'paperback', checkedOutBy: '33333',
     });
     r = await request(app)
-      .get('/book/findcheckedout/33333')
-      .set({ origin: allowedUrl })
-      .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`);
-    expect(r.status).toBe(200);
-  });
-  it('updates a book by id', async () => {
-    const newBook = await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback', checkedOutBy: '33333',
-    });
-    r = await request(app)
-      .put(`/book/${newBook.id}`)
+      .put(`/api/blog/${newBook.id}`)
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`)
-      .send({ checkedOutBy: '' });
+      .send({ title: 'Bad Blog' });
     expect(r.status).toBe(200);
   });
-  it('finds the book by id', async () => {
-    const newBook = await BookModel.create({
+  it('finds the blog by id', async () => {
+    const newblog = await BlogModel.create({
       title: 'Best Test Book Ever', type: 'paperback', checkedOutBy: '33333',
     });
     r = await request(app)
-      .get(`/book/${newBook._id}`)
+      .get(`/api/blog/${newblog._id}`)
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`);
     expect(r.status).toBe(200);
   });
-  it('gets all books', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('gets all blogs', async () => {
+    await BlogModel.create({
+      title: 'Best blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .get('/book')
+      .get('/api/blog')
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: '123456' })}`);
     expect(r.status).toBe(200);
   });
-  it('creates a new book', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('creates a new blog', async () => {
+    await BlogModel.create({
+      title: 'Best blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .post('/book')
+      .post('/api/blog')
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`)
       .send({
-        title: 'Best Test Book Ever', type: 'paperback',
+        title: '2nd Best Blog Ever', type: 'Lutheran',
       });
     expect(r.status).toBe(201);
   });
-  it('deletes many books', async () => {
-    await BookModel.create({
-      title: 'Best Test Book Ever', type: 'paperback',
+  it('deletes many blogs', async () => {
+    await BlogModel.create({
+      title: 'Best Blog Ever', type: 'paperback',
     });
     r = await request(app)
-      .delete('/book')
+      .delete('/api/blog')
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`)
       .query({ type: 'paperback' });

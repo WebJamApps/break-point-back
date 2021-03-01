@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+// import userUtils from './userUtils';
 import bcrypt from 'bcryptjs';
 
 const { Schema } = mongoose;
@@ -30,11 +31,9 @@ const userSchema = new Schema({
 });
 
 userSchema.pre('save', function pwEcrypt(next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  // eslint-disable-next-line @typescript-eslint/no-this-alias, @typescript-eslint/no-explicit-any
   const user:any = this;
-  if (!this.isModified('password') || user.password === '') {
-    return next();
-  }
+  if (!this.isModified('password') || user.password === '') { return next(); }
   return bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(user.password, salt, (err2, hash) => {
       user.password = hash;

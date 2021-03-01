@@ -88,7 +88,7 @@ describe('the authUtils', () => {
     const uM:any = userModel;
     uM.findById = jest.fn(() => ({ lean: () => ({ exec: () => Promise.resolve() }) }));
     reqStub.user = mongoose.Types.ObjectId();
-    reqStub.baseUrl = '/book';
+    reqStub.baseUrl = '/user';
     resStub = {
       status(num: number) {
         expect(num).toBe(401);
