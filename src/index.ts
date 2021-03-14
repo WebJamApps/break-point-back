@@ -25,7 +25,7 @@ const corsOptions = {
 const app = express();
 
 /* istanbul ignore next */
-if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforce.HTTPS({ trustProtoHeader: true }));
+if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'main') app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(express.static(path.normalize(path.join(__dirname, '../breakpointministries/dist'))));
 app.use(cors(corsOptions));
 let mongoDbUri: string = process.env.MONGO_DB_URI || /* istanbul ignore next */'';
