@@ -16,10 +16,11 @@ describe('The Blog API', () => {
   beforeEach(async () => {
     const deleter:any = {};
     await BlogModel.deleteMany(deleter);
+    await BlogModel.create({ title: 'Howdy', body: 'Yo Yo!' });
   });
-  it('should find one blog', async () => {
+  it('find one blog', async () => {
     await BlogModel.create({
-      title: 'Best Blog Ever', type: 'paperback',
+      title: 'Best Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .get('/api/blog/one')
@@ -33,7 +34,7 @@ describe('The Blog API', () => {
   });
   it('should not find one blog', async () => {
     await BlogModel.create({
-      title: 'Best Blog Ever', type: 'paperback',
+      title: 'Best Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .get('/api/blog/one')
@@ -46,7 +47,7 @@ describe('The Blog API', () => {
   });
   it('should update one blog', async () => {
     await BlogModel.create({
-      title: 'Best Blog Ever', type: 'paperback',
+      title: 'Best Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .put('/api/blog/one')
@@ -61,7 +62,7 @@ describe('The Blog API', () => {
   });
   it('deletes a blog by id', async () => {
     const newBook = await BlogModel.create({
-      title: 'Best Blog Ever', type: 'paperback',
+      title: 'Best Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .delete(`/api/blog/${newBook._id}`)
@@ -71,7 +72,7 @@ describe('The Blog API', () => {
   });
   it('updates a blog by id', async () => {
     const newBook = await BlogModel.create({
-      title: 'Best Blog Ever', type: 'paperback', checkedOutBy: '33333',
+      title: 'Best Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .put(`/api/blog/${newBook.id}`)
@@ -82,7 +83,7 @@ describe('The Blog API', () => {
   });
   it('finds the blog by id', async () => {
     const newblog = await BlogModel.create({
-      title: 'Best Test Book Ever', type: 'paperback', checkedOutBy: '33333',
+      title: 'Best Test Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .get(`/api/blog/${newblog._id}`)
@@ -92,7 +93,7 @@ describe('The Blog API', () => {
   });
   it('gets all blogs', async () => {
     await BlogModel.create({
-      title: 'Best blog Ever', type: 'paperback',
+      title: 'Best blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .get('/api/blog')
@@ -102,20 +103,20 @@ describe('The Blog API', () => {
   });
   it('creates a new blog', async () => {
     await BlogModel.create({
-      title: 'Best blog Ever', type: 'paperback',
+      title: 'Best blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .post('/api/blog')
       .set({ origin: allowedUrl })
       .set('Authorization', `Bearer ${authUtils.createJWT({ _id: newUser._id })}`)
       .send({
-        title: '2nd Best Blog Ever', type: 'Lutheran',
+        title: '2nd Best Blog Ever', type: 'Lutheran', body: 'I am the best blog ever!',
       });
     expect(r.status).toBe(201);
   });
   it('deletes many blogs', async () => {
     await BlogModel.create({
-      title: 'Best Blog Ever', type: 'paperback',
+      title: 'Best Blog Ever', type: 'paperback', body: 'I am the best blog ever!',
     });
     r = await request(app)
       .delete('/api/blog')
