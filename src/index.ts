@@ -13,7 +13,7 @@ import enforce from 'express-sslify';
 import routes from './routes';
 
 dotenv.config();
-const debug = Debug('web-jam-back:index');
+const debug = Debug('break-point-back:index');
 /* istanbul ignore else */
 if (supportsColor.stdout) debug('Terminal stdout supports color');
 

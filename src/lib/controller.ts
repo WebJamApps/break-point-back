@@ -15,7 +15,7 @@ interface Imodel {
   deleteMany:(...args:any)=>any;
   comparePassword?:(...args:any)=>any;
 }
-const debug = Debug('web-jam-back:lib/controller');
+const debug = Debug('break-point-back:lib/controller');
 let uRoles:string[] = [];
 try {
   uRoles = JSON.parse(process.env.userRoles || /* istanbul ignore next */'{"roles": []}').roles;
