@@ -1,4 +1,3 @@
-import type {Request, Response} from 'express';
 import mongoose from 'mongoose';
 
 const options = {
