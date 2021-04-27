@@ -1,3 +1,4 @@
+import type {Request, Response} from 'express';
 import mongoose from 'mongoose';
 
 const options = {
@@ -7,11 +8,15 @@ const options = {
 const { Schema } = mongoose;
 
 const subscriberSchema = new Schema({
-  title: { type: String, required: true },
-  type: { type: String, required: false },
-  author: { type: String, required: false },
-  dateOfPub: { type: Number, required: false },
-  body: { type: String, required: true },
+  name: { type: String, required: false },
+  email: { type: String, required: true, unique: true },
+  street: { type: String, required: false },
+  city: { type: Number, required: false },
+  state: { type: String, required: false },
+  zip: { type: String, required: false },
+  phone: { type: Number, required: false },
+  verified: { type: Boolean },
+  connection: { type: String, required: false },
 }, options);
 
 export default mongoose.model('Subscriber', subscriberSchema);
