@@ -14,7 +14,7 @@ const subscriberSchema = new Schema({
   state: { type: String, required: false },
   zip: { type: String, required: false },
   phone: { type: Number, required: false },
-  verified: { type: Boolean },
+  verified: { type: Number }, // send code to user email with link to verify
   connection: { type: String, required: false },
 }, options);
 
