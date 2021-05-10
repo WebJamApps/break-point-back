@@ -11,17 +11,38 @@ class SubscriberController extends Controller {
     this.utils = Utils;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   newSubscriber(req:Request, res:Response) {
-    console.log(req.body);
     if (!this.utils.emailIsValid(req.body.email)) return res.status(400).json({ error: 'email is invalid' });
-    // TODO create a new subscriber with given email and random number for verified
-    // TODO validate email
-    // TODO generate  5 digit random number
-    // TODO send email to this user with link to verify and using this code
-    // TODO if email exists and verified === 0, make a new verified code and send email to user again
-    return res.status(201).json({ message: JSON.stringify(req.body) });
+    const verified = this.utils.generateCode(99999, 10000);
+    let data;
+    try {
+      data = this.model.create({ email: req.body.email, verified });
+    } catch (e) { return res.status(500).json({ error: `failed to create new subscriber, ${e.message}` }); }
+    return res.status(201).json(data);
   }
+
+  // async signup(req: any, res: any) {
+  //   let existingUser;
+  //   const randomNumba = this.authUtils.generateCode(99999, 10000);
+  //   const user = {
+  //     name: req.body.name,
+  //     verifiedEmail: false,
+  //     email: req.body.email,
+  //     password: req.body.password,
+  //     isPswdReset: false,
+  //     resetCode: randomNumba,
+  //   };
+  //   const validData = this.model.validateSignup ? this.model.validateSignup(user) : /* istanbul ignore next */'';
+  //   if (validData !== '') return res.status(400).json({ message: validData });
+  //   try { existingUser = await this.model.findOne({ email: req.body.email }); } catch (e) { return this.resErr(res, e); }
+  //   if (existingUser && existingUser.verifiedEmail) {
+  //     return res.status(409).json({ message: 'This email address is already registered' });
+  //   }
+  //   if (existingUser && !existingUser.verifiedEmail) {
+  //     try { await this.model.findByIdAndRemove(existingUser._id); } catch (e) { return this.resErr(res, e); }
+  //   }
+  //   return this.finishSignup(res, user, randomNumba);
+  // }
 
   // eslint-disable-next-line class-methods-use-this
   verifySubscriber(req:Request, res:Response) {
