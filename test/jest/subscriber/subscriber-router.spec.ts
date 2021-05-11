@@ -2,9 +2,8 @@
 import request from 'supertest';
 import app from '../../../src/index';
 import subscriber from '../../../src/model/subscriber/subscriber-facade';
-import controller from '../../../src/model/subscriber/subscriber-controller';
 
-describe('User Router', () => {
+describe('Subscriber Router', () => {
   let r: { status:number };
   const deleter:any = {};
   beforeEach(async () => {
