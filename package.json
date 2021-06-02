@@ -1,10 +1,10 @@
 {
   "name": "break-point-back",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "changeInChrist-API",
   "main": "index.js",
   "engines": {
-    "node": "15.14.0"
+    "node": ">=16.2.0"
   },
   "files": [
     "lib/",
