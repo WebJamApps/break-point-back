@@ -60,7 +60,7 @@
     "helmet": "latest",
     "jwt-simple": "latest",
     "moment": "latest",
-    "mongoose": "5.12.3",
+    "mongoose": "6.0.4",
     "morgan": "latest",
     "nodemon": "latest",
     "superagent": "latest",
