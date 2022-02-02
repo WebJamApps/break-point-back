@@ -29,5 +29,5 @@ fi
 
 (
 cd breakpointministries;
-yarn install;
+npm install;
 )
