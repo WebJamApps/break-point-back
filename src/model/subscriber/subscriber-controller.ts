@@ -17,16 +17,10 @@ class SubscriberController extends Controller {
     let data;
     try {
       data = await this.model.create({ email: req.body.email, verified });
-    } catch (e) { return res.status(500).json({ error: `failed to create new subscriber, ${e.message}` }); }
+    } catch (e) { return res.status(500).json({ error: `failed to create new subscriber, ${(e as Error).message}` }); }
     return res.status(201).json(data);
   }
 
-  // // eslint-disable-next-line class-methods-use-this
-  // verifySubscriber(req:Request, res:Response) {
-  //   console.log(req.body);
-  //   // else set verified to 0
-  //   return res.status(200).json({ message: JSON.stringify(req.body) });
-  // }
 }
 
 export default new SubscriberController(SubscriberModel, SubscriberUtils);

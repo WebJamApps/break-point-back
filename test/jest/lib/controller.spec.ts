@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import Controller from '../../../src/lib/controller';
 
 describe('lib controller', () => {
-  const goodId = mongoose.Types.ObjectId();
+  const goodId = new mongoose.Types.ObjectId();
   let c, r;
   const model:any = {
     findOne: () => Promise.reject(new Error('bad')),
