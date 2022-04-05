@@ -58,7 +58,7 @@
     "express-sslify": "latest",
     "helmet": "latest",
     "jwt-simple": "latest",
-    "moment": "latest",
+    "moment": "2.29.2",
     "mongoose": "latest",
     "morgan": "latest",
     "nodemon": "latest",
