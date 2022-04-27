@@ -1,11 +1,11 @@
 {
   "name": "break-point-back",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "changeInChrist-API",
   "main": "index.js",
   "engines": {
-    "node": ">=16.13.2 <17",
-    "npm": ">=8.4.0 <9"
+    "node": ">=18.0.0 <19",
+    "npm": ">=8.7.0 <9"
   },
   "files": [
     "lib/",
@@ -58,7 +58,7 @@
     "express-sslify": "latest",
     "helmet": "latest",
     "jwt-simple": "latest",
-    "moment": "latest",
+    "moment": "^2.29.3",
     "mongoose": "latest",
     "morgan": "latest",
     "nodemon": "latest",
